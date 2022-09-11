@@ -7,12 +7,17 @@
 4. 서기가 돌아가며 나온 질문들을 Discussion에 정리한다.
 
 ## 챕터
-### Database
-    - SQL vs NoSQL
-    - Join
-    - Index
-    - Transaction
-    - MySQL
+### 1주차
+
+### Operating System
+    - OS
+    - Process vs Thread
+    - 가상 메모리
+    - 페이징과 세그먼테이션
+    - Blocking/Non-blocking & Synchronous/Asynchronous
+    - 스케줄러
+### 2주차
+
 ### Network
     - OSI 7 Layer
     - HTTP 1.1 vs 2 vs 3
@@ -22,13 +27,9 @@
     - TLS/SSL HandShake
     - Load Balancing
     - 쿠키(Cookie)와 세션(Session)
-### Operating System
-    - OS
-    - Process vs Thread
-    - 가상 메모리
-    - 페이징과 세그먼테이션
-    - Blocking/Non-blocking & Synchronous/Asynchronous
-    - 스케줄러
+    
+### 3주차
+
 ### Security
     - OWASP 10
         - CORS
@@ -44,7 +45,16 @@
     - Binary Search Tree
     - Hash
     - Trie
+    
+### 4주차
 
+### Database
+    - SQL vs NoSQL
+    - Join
+    - Index
+    - Transaction
+    - MySQL
+    
 ## 구성원 👨‍👩‍👦‍👦👩‍👦
 
 |                                         Backend                                          |                                         Backend                                          |                                         Backend                                          |                                         Backend                                         
