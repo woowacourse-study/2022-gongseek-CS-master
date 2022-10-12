@@ -1,0 +1,17 @@
+- Load Balancing
+    
+    Load Balancing이란? 요청(Load)을 여러 서버에게 나누어(Balance) 부하를 조절하는 방법이다.
+    
+    ### L4 Load Balancer vs L7 Load Balancer
+    
+    - L4 Load Balancer
+    
+    Network Layer, Transport Layer 기준으로 요청을 분산한다.
+    
+    장점 → 패킷 내부까지 보지 않기 때문에 더 빠르고 더 저렴하다.
+    
+    - L7 Load Balancer
+    
+    Network Layer, Transport Layer + Application Layer를 기준으로 요청을 분산한다.
+    
+    장점 → Application Layer까지 보고 분산하므로 더 상세한 라우팅이 가능하고, 캐시를 지원한다. 비정상적인 트래픽을 사전에 확인할 수 있어서 더 좋다.

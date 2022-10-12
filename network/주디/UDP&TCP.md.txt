@@ -1,0 +1,72 @@
+- TCP vs UDP
+    
+    ## UDP
+    
+    ### UDP의 특징
+    
+    1. `best effort` : 최선을 다하겠지만 loss, error, delay, bandwidth, order 등 아무것도 보장할 수 없음
+    2. `connectionless` : no, handshaking, UDP segment independently
+    3. UDP use : 손상되고 없어져도 되는데 빨라야함 loss tolerant, rate sensitive → streaming multimedia, DNS, SNMP
+    대신 여러번 보냄
+    4. reliable 하고 싶다면 application layer에서 구현하면 됨
+    
+    ## UDP segment
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/229f3737-718a-459d-b5c1-6d3b0849da38/Untitled.png)
+    
+    1. payload의 길이는 고정되어 있지 않으므로 segment의 길이인 length값이 필요함
+    2. checksum : error를 감지 → 감지되면 segment를 버림
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/88ab7446-e953-4c19-8004-ae0785a0d270/Untitled.png)
+    
+    ### check sum
+    
+    segment를 16 bit마다 잘라서 더함
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1f1dab2-7efb-49c6-9579-697e280d73a7/Untitled.png)
+    
+    1. error이 발생할 때마다 캐리 1을 더해서 16bit를 넘어가면 그 비트를 0번째 자리에 더함
+    2. 이런 식으로 16bit씩 자른 bits를 다 더하면 sum이 나옴
+    3. sum의 1의 보수(0이랑 1이랑 바꾸는거)를 checksum이라고 함 ⇒ 이걸 헤더에 넣는거임
+    4. 데이터가 이동 할 때마다 sum을 계산해서 헤더에 check sum에 더하면 FF(16)이 나오면 error발생안함 아닐경우  error발생해서 버림
+    
+    ## TCP
+    
+    ### TCP 특징
+    
+    1. `point-to-point`
+    one sender, one receiver
+    2. `reliable, in-order`
+    3. `pipelined`
+    TCP congestion and flow control
+    4. `full duplex data`
+    데이터를 보내면서 동시에 받을 수 있음
+    5. `connection-oriented`
+    handshaking
+    6. `flow controled`
+    받을 사람이 받을 수 있는 정보만
+    
+    # TCP segment structure
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3f5af45-314e-4788-ab0c-3412b6dd5d7d/Untitled.png)
+    
+    1. seq #: TCP는 패킷#가 아니라 byte#를 사용한다. 따라서 해당 패킷의 가장 처음 나오는 byte#를 seq#로 사용한다.
+    2. ack #: 다음에 받을 seq# 이고 byte#를 사용한다. sender가 보낼 때 0, receiver가 보낼 때 1?
+    3. U : uegent data가 있을 경우 1 → Urg data pointer에 저장되어 있는 포인터의 데이터를 바로 app layer로 올린다.
+    4. Urg data pointer : 바로 application layer로 올릴 데이터의 포인터가 저장되어 있다.
+    5. A : ack#가 유효하면 1, 아니면 0으로 ack#를 무시한다.
+    6. P : application layer로 바로 데이터를 보내야하는 경우 1로 표시한다.
+    7. R : reset의 약자로 컨넥션을 재설정함
+    8. S : sink의 약자로 컨넥션을 연결함
+    9. F : finish의 약자로 컨넥션을 끊음
+    10. receiver window(rwnd) : socket의 free buffer space, free buffer가 얼마나 남았는지 알려줌, ack를 보낼 때 같이 보냄
+    
+    ## TCP seq#, ack#
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/787a83ce-f33a-4a36-b3ec-8167e7b564ef/Untitled.png)
+    
+    1byte의 데이터 'C'를 보낼 때 seq#가 42고 ACK를 보낼 때 그 다음에 받을 seq#인 43을 보낸다.
+    
+    그리고 ack#을 43을 받은 sender은 seq#가 43인 패킷을 보낸다.
+    **`seq#` → data의 첫번째 byte#
+    `ack#` → 다음 seq#**
